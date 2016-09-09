@@ -19,11 +19,13 @@ Copyright 2016
 
 import logging
 import optparse
+import re
 import sys
 
 from rdflib import __version__ as rdflib_version, Graph
 from rdflib.compare import isomorphic, to_isomorphic, graph_diff, to_canonical_graph
 from rdflib.util import guess_format
+from rdflib.term import BNode, URIRef
 
 import rdiffb
 
@@ -34,6 +36,42 @@ def nt_sorted(g, prefix=''):
         if line:
             s += prefix + line.decode('utf-8') + "\n"
     return s
+
+
+def to_bnodes(graph, pattern):
+    """Convert any URIs in graph matching pattern to bnodes.
+
+    Returns:
+        new_graph -- modified graph
+        subs -- number of term substitutions made
+        mapping -- dict with mapping of URIRef -> BNode
+    """
+    new_graph = Graph()
+    mapping = dict()
+    regex = re.compile(pattern)
+    logging.debug("Looking for %s in graph" % (str(regex)))
+    subs = 0
+    for s, p, o in graph:
+        if (isinstance(s, URIRef)):
+            if (s in mapping):
+                s = mapping[s]
+                subs += 1
+            elif (regex.search(str(s))):
+                mapping[s] = BNode()
+                s = mapping[s]
+                subs += 1
+        if (isinstance(o, URIRef)):
+            print("node %s %s %s" % (str(s),str(p),str(o)))
+            if (o in mapping):
+                o = mapping[o]
+                subs += 1
+            elif (regex.search(str(o))):
+                mapping[o] = BNode()
+                o = mapping[o]
+                subs += 1
+        new_graph.add((s, p, o))
+    logging.debug("mapping: %s, made %d subs" % (str(mapping), subs))
+    return new_graph, subs, mapping
 
 def main():
 
@@ -71,6 +109,14 @@ def main():
         logging.info("Reading %s as %s..." % (filename, fmt))
         graph = Graph().parse(filename, format=fmt)
         logging.debug("... got %d triples" % (len(graph)))
+        mapping = dict()
+        for pattern in opt.bnode:
+            logging.debug("Looking for pattern %s" % (pattern))
+            graph, subs, this_mapping = to_bnodes(graph, pattern)
+            mapping.update(this_mapping)
+        logging.debug("Complete mapping: " + str(mapping))
+        # FIXME - need to patch/replace/modify to_canonical_graph to record
+        # the relabeling
         graph = to_canonical_graph(graph)
         graphs.append(graph)
 
