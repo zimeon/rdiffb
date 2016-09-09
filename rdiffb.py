@@ -28,6 +28,7 @@ from rdflib.util import guess_format
 from rdflib.term import BNode, URIRef
 
 import rdiffb
+from rdiffb.canonicalizer_with_memory import CanonicalizerWithMemory
 
 def nt_sorted(g, prefix=''):
     """Linewise sort ntriples serialization, with optional prefix."""
@@ -117,7 +118,8 @@ def main():
         logging.debug("Complete mapping: " + str(mapping))
         # FIXME - need to patch/replace/modify to_canonical_graph to record
         # the relabeling
-        graph = to_canonical_graph(graph)
+        cwm = CanonicalizerWithMemory(graph)
+        graph = cwm.canonical_graph(graph)
         graphs.append(graph)
 
     in_both, in_first, in_second = graph_diff(graphs[0], graphs[1])
