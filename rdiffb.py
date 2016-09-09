@@ -121,7 +121,7 @@ def main():
         # FIXME - need to patch/replace/modify to_canonical_graph to record
         # the relabeling
         cwm = CanonicalizerWithMemory(graph)
-        graph = cwm.canonical_graph(graph)
+        graph = cwm.canonical_graph()
         graphs.append(graph)
 
     in_both, in_first, in_second = graph_diff(graphs[0], graphs[1])

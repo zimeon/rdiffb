@@ -33,8 +33,8 @@ class CanonicalizerWithMemory(_TripleCanonicalizer):
         in rdflib.compare._TripleCanonicalizer --- IT MAY BREAK WITH
         A NEW VERSION OF rdflib (created with v4.2.1).
 
-        For each bnode id change, the map from new_id to old_id is
-        recorded in self.bnode_map.
+        For each bnode id change, the map from new BNode to the
+        old BNode is recorded in self.bnode_map.
         """
         for term in triple:
             if isinstance(term, BNode):
@@ -44,15 +44,14 @@ class CanonicalizerWithMemory(_TripleCanonicalizer):
                 # FIXME - in the code the full id is generated it seems the
                 # FIXME - cleanest place to put it. Otherwise we'd have to
                 # FIXME - duplicate the id construction from label[..]
-                old_id = str(term)
-                new_id = "cb%s" % labels[term]
-                self.bnode_map[new_id] = old_id
-                # print(old_id + ' --> ' + new_id)
-                yield BNode(value=new_id)
+                new_bnode = BNode(value="cb%s" % labels[term])
+                # print(str(term) + ' --> ' + str(new_bnode))
+                self.bnode_map[new_bnode] = term
+                yield new_bnode
             else:
                 yield term
 
-    def canonical_graph(self, g1):
+    def canonical_graph(self):
         """Create a canonical, read-only graph.
 
         Modification of rdflib.compare.to_canonical_graph that is instead
