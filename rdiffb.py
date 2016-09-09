@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-rbdiff: RDF diff with bnode handling command line utility
+rbdiff: RDF diff with bnode handling command line utility.
 
 Copyright 2016
 
@@ -29,6 +29,7 @@ from rdflib.term import BNode, URIRef
 
 import rdiffb
 from rdiffb.canonicalizer_with_memory import CanonicalizerWithMemory
+
 
 def nt_sorted(g, prefix=''):
     """Linewise sort ntriples serialization, with optional prefix."""
@@ -62,7 +63,7 @@ def to_bnodes(graph, pattern):
                 s = mapping[s]
                 subs += 1
         if (isinstance(o, URIRef)):
-            print("node %s %s %s" % (str(s),str(p),str(o)))
+            print("node %s %s %s" % (str(s), str(p), str(o)))
             if (o in mapping):
                 o = mapping[o]
                 subs += 1
@@ -74,18 +75,19 @@ def to_bnodes(graph, pattern):
     logging.debug("mapping: %s, made %d subs" % (str(mapping), subs))
     return new_graph, subs, mapping
 
-def main():
 
-    if (sys.version_info < (2,6)):
+def main():
+    """Command line client."""
+    if (sys.version_info < (2, 6)):
         sys.exit("This program requires python version 2.6 or later")
     if (rdflib_version < "4.2.0"):
         sys.exit("This program requires rdflib >= 4.2.0 for correct "
                  "rdflib.compare using the RDGA1 algorithm")
-    
+
     # Options and arguments
     p = optparse.OptionParser(description='rbdiff command line client',
                               usage='usage: %prog [options] uri_path local_path  (-h for help)',
-                              version='%prog '+rdiffb.__version__ )
+                              version='%prog ' + rdiffb.__version__)
 
     p.add_option('--bnode', '-b', action='append', default=[],
                  help="add a regex for URIs that should be treated like bnodes "
@@ -101,7 +103,7 @@ def main():
     level = logging.DEBUG if opt.debug else logging.INFO if opt.verbose else logging.WARN
     logging.basicConfig(level=level, format='%(message)s')
 
-    if (len(args)!=2):
+    if (len(args) != 2):
         sys.exit("Two arguments required")
 
     graphs = []
@@ -126,19 +128,21 @@ def main():
 
     same = len(in_both)
     diff = len(in_first) + len(in_second)
-    pct_same = same * 200.0 / ( diff + 2 * same)
-    logging.info("%d triples are shared by the two graphs (%.1f%%)" % (same, pct_same))
+    pct_same = same * 200.0 / (diff + 2 * same)
+    logging.info(
+        "%d triples are shared by the two graphs (%.1f%%)" %
+        (same, pct_same))
     logging.info("Shared:")
     logging.info(nt_sorted(in_both, '= '))
-    if (len(in_first)>0):
+    if (len(in_first) > 0):
         logging.info("In first only:")
         sys.stdout.write(nt_sorted(in_first, '< '))
-    if (len(in_second)>0):
+    if (len(in_second) > 0):
         logging.info("In second only:")
         sys.stdout.write(nt_sorted(in_second, '> '))
 
     # Exit status: 0 if same, 1 if different
-    sys.exit(1 if (diff>0) else 0)
+    sys.exit(1 if (diff > 0) else 0)
 
 if __name__ == '__main__':
     main()

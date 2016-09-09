@@ -1,18 +1,22 @@
 """Setup for rdiffb."""
 from setuptools import setup, Command
 import os
-# setuptools used instead of distutils.core so that 
+# setuptools used instead of distutils.core so that
 # dependencies can be handled automatically
 
 # Extract version number
 import re
-VERSIONFILE="rdiffb/__init__.py"
+VERSIONFILE = "rdiffb/__init__.py"
 verfilestr = open(VERSIONFILE, "rt").read()
-match = re.search(r"^__version__ = '(\d\.\d.\d+(\.\d+)?)'", verfilestr, re.MULTILINE)
+match = re.search(
+    r"^__version__ = '(\d\.\d.\d+(\.\d+)?)'",
+    verfilestr,
+    re.MULTILINE)
 if match:
     version = match.group(1)
 else:
     raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE))
+
 
 class Coverage(Command):
     """Class to allow coverage run from setup."""
@@ -43,7 +47,7 @@ setup(
     classifiers=["Development Status :: 4 - Beta",
                  "Intended Audience :: Developers",
                  "License :: OSI Approved :: Apache Software License",
-                 "Operating System :: OS Independent", #is this true? know Linux & OS X ok
+                 "Operating System :: OS Independent",  # is this true? know Linux & OS X ok
                  "Programming Language :: Python",
                  "Programming Language :: Python :: 2.6",
                  "Programming Language :: Python :: 2.7",

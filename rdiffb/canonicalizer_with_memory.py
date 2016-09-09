@@ -5,7 +5,7 @@ add storage for the bnode id changes, and to store each change.
 
 WARNING - This code is critically dependent upon the internal
 structure of the base class rdflib.compare._TripleCanonicalizer
-and this is not a published interface --- IT MAY BREAK WITH A 
+and this is not a published interface --- IT MAY BREAK WITH A
 NEW VERSION OF rdflib (created with v4.2.1 2016-09-09).
 """
 
@@ -13,7 +13,13 @@ from rdflib.graph import Graph, ConjunctiveGraph, ReadOnlyGraphAggregate
 from rdflib.term import BNode, Node
 from rdflib.compare import _TripleCanonicalizer
 
+
 class CanonicalizerWithMemory(_TripleCanonicalizer):
+    """Graph canonicalization class.
+
+    Subclass of rdflib.compare._TripleCanonicalizer that adds
+    storage of bnode id mappings during canonicalization.
+    """
 
     def __init__(self, graph, **kwargs):
         """Initialize instance, add bnode_map."""
@@ -36,18 +42,18 @@ class CanonicalizerWithMemory(_TripleCanonicalizer):
                 # FIXME - set the value in the bnode_map dict() every time
                 # FIXME - the mapping is used. However, since this is where
                 # FIXME - in the code the full id is generated it seems the
-                # FIXME - cleanest place to put it. Otherwise we'd have to 
+                # FIXME - cleanest place to put it. Otherwise we'd have to
                 # FIXME - duplicate the id construction from label[..]
                 old_id = str(term)
                 new_id = "cb%s" % labels[term]
                 self.bnode_map[new_id] = old_id
-                #print(old_id + ' --> ' + new_id)
+                # print(old_id + ' --> ' + new_id)
                 yield BNode(value=new_id)
             else:
                 yield term
 
     def canonical_graph(self, g1):
-        """Creates a canonical, read-only graph.
+        """Create a canonical, read-only graph.
 
         Modification of rdflib.compare.to_canonical_graph that is instead
         made as a method of CanonicalizerWithMemory so that we can access
