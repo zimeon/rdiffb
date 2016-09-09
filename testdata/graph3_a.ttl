@@ -1,0 +1,2 @@
+@prefix : <http://example.org/> .
+:gen1 :p "ABC" .
