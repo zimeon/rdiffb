@@ -10,3 +10,7 @@ As part of the [LD4L](http://ld4l.org/) Labs project we want a continuous integr
   * [https://groups.google.com/forum/#!topic/thosch/SR902daW0LI]
   * [https://sourceforge.net/projects/knobot/files/rdf-utils/] 
   * [http://rdflib3.readthedocs.io/en/latest/apidocs/rdflib.html#module-rdflib.compare]
+
+## Notes
+
+  * [Beware old versions of rdflib -- upgrade!](beware_old_rdflib.md)
