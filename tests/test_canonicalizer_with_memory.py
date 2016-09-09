@@ -19,7 +19,7 @@ class TestCanonicalizerWithMemory(unittest.TestCase):
         """Check map of one bnode."""
         g = Graph()
         old_bnode = BNode('12345')
-        g += [ (URIRef(u's'), URIRef(u'p'), old_bnode) ]
+        g += [(URIRef(u's'), URIRef(u'p'), old_bnode)]
         cwm = CanonicalizerWithMemory(g)
         cg = cwm.canonical_graph()
         self.assertEqual(len(cg), 1)
