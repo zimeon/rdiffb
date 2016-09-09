@@ -1,0 +1,6 @@
+@prefix : <http://example.org/ns#> .
+
+<http://example.org> :rel <http://example.org/same>,
+  [ :label "Same" ],
+    <http://example.org/a>,
+    [ :label "A" ] .

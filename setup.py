@@ -4,12 +4,9 @@ import os
 # setuptools used instead of distutils.core so that 
 # dependencies can be handled automatically
 
-# Extract version number from resync/_version.py. Here we 
-# are very strict about the format of the version string 
-# as an extra sanity check. (Thanks for comments in 
-# http://stackoverflow.com/questions/458550/standard-way-to-embed-version-into-python-package )
+# Extract version number
 import re
-VERSIONFILE="resync/_version.py"
+VERSIONFILE="rdiffb/__init__.py"
 verfilestr = open(VERSIONFILE, "rt").read()
 match = re.search(r"^__version__ = '(\d\.\d.\d+(\.\d+)?)'", verfilestr, re.MULTILINE)
 if match:
@@ -60,6 +57,7 @@ setup(
     long_description=open('README').read(),
     url='http://github.com/zimeon/rdiffb',
     install_requires=[
+        "rdflib>=4.2.0",
         "testfixtures"
     ],
     test_suite="tests",
