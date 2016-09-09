@@ -1,4 +1,4 @@
-"""Shell calls to test command line client rdfibb.py."""
+"""Shell calls to test command line client rdiffb.py."""
 import unittest
 import subprocess
 
@@ -26,5 +26,5 @@ class TestCommandLineClient(unittest.TestCase):
                          0)
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestExplorer)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCommandLineClient)
     unittest.TextTestRunner(verbosity=2).run(suite)
