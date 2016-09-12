@@ -22,7 +22,7 @@ This doesn't exist yet but there is a mockup of possible output [102063.rdf](exa
 
 Let's say we have some beautifully hand-crafted RDF that we are expecting the converter to produce [102063_simple.ttl](examples/102063_simple.ttl) and we now want to see whether the converter output matched (perhaps as part of an acceptance test).
 
-A first attempt might be to convert each output to ntriples (I use `rapper` from the [`raptor`](http://librdf.org/raptor/rapper.html) for conversion below), sort the triples and use Unix `diff`. This is pretty ugly:
+A first attempt might be to convert each output to ntriples (I use `rapper` from the [`raptor`](http://librdf.org/raptor/rapper.html) suite for conversion below), sort the triples and use Unix `diff`. This is pretty ugly:
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>rapper -i rdfxml -o ntriples examples/102063.rdf | sort > /tmp/in.nt
@@ -60,7 +60,7 @@ Graphs examples/102063.rdf and examples/102063_simple.ttl are isomorphic after b
 
 (`-s` flag says report same, rather then being silent like default `diff` behavior, `-b http://example.org/` says theat URIs matching like bnodes.)
 
-What if the converter were not perfect, but instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
+What if the converter were not perfect, but the outout instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
@@ -87,7 +87,7 @@ What if the converter were not perfect, but instead contained an error? The exam
 > _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
 ```
 
-Sadly, the output is rather more than one triple. This is because the deterministic assignment of canonical bnode labels depends upon the environment of the bnode, and this is changed. Ideally, a helpful tool would have output just:
+Sadly, the output is rather more than one triple. This is because the deterministic assignment of canonical bnode labels depends upon the environment of the bnode which is changed because of the missing triple. In this case we see in the output all triples involving the `bf:Instance` that should have had the dimensions. Ideally, a helpful tool would have output just:
 
 ```
 > _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/dimensions> "27 cm" .
