@@ -93,7 +93,7 @@ def main():
                  help="add a regex for URIs that should be treated like bnodes "
                       "in diffs (repeatable)")
     p.add_option('--report-isomorphic-graphs', '-s', action='store_true',
-                 help="report if the input RDF graphs are isomorphic (after any bnode substitution)") 
+                 help="report if the input RDF graphs are isomorphic (after any bnode substitution)")
     p.add_option('--verbose', '-v', action='store_true',
                  help="verbose, show additional informational messages")
     p.add_option('--debug', '-d', action='store_true',
