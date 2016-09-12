@@ -16,6 +16,7 @@ Let's imagine that we have a MARCXML-to-LD4LAll ontology that we can run as foll
 
 ``` sh
 NOT-REAL> cat examples/102063.marc.xml | marcxml_to_ld4lall > examples/102063.rdf
+```
 
 This doesn't exist yet but there is a mockup of possible output [102063.rdf](examples/102063.rdf), which includes a number of generated URIs (no bnodes) of the form `http://example.org/cornell/xx/########` (where `########` is some hex string). 
 
