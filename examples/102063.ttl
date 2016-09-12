@@ -1,0 +1,85 @@
+# Not yet handled/decided in LD4All Sprint work, on which this is based:
+# admin metadata (so not included)
+# holdings or bf:Item-level information
+# no carrier, media information (not present in non-RDA MARC record)
+# no copyright date in simple record
+# Issuance may/may not stay on Work level.
+# Some LD4L values are named individuals yet to be created in the ontology.
+# Entity resolution to external datasets only included when the labels are an exact match.
+
+@prefix bf: <http://bibframe.org/vocab/> .
+@prefix cul: <http://cornell.edu/examplebibs/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ld4l: <http://bib.ld4l.org/ontology/> .
+@prefix lexvo: <http://lexvo.org/id/iso639-3/> .
+@prefix madsrdf: <http://www.loc.gov/mads/rdf/v1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+cul:102063 a bf:Text, bf:Work ;
+    bf:classification cul:class1, cul:class3 ;
+    bf:hasInstance cul:102063instance1 ;
+    bf:identifiedBy cul:id1, cul:id2, cul:id3, cul:id4 ;
+    dcterms:language lexvo:eng ;
+    dcterms:subject <http://id.loc.gov/authorities/subjects/sh85023137> ;
+    dcterms:subject <http://id.worldcat.org/fast/853831> ;
+    ld4l:hasActivity cul:act2, cul:act3 ;
+    ld4l:hasPreferredTitle cul:title1 ;
+    ld4l:illustrativeContent ld4l:IllustrationsContent ;
+    owl:sameAs <http://lccn.loc.gov/56010158/L> .
+cul:102063instance1 a bf:Instance ;
+    bf:instanceOf cul:102063 ;
+    bf:classification cul:class2 ;
+    bf:issuance ld4l:Monograph ;
+    bf:supplementaryContent ld4l:SupplementaryBibliography ;
+    bf:dimensions "27 cm" ;
+    bf:extent cul:ext1 ;
+    bf:responsibilityStatement "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" ;
+    bf:supplementaryContent ld4l:BibliographyContent ;
+    ld4l:hasActivity cul:act1 .
+cul:act1 a ld4l:PublicationActivity ;
+    bf:agent <http://id.loc.gov/rwo/agents/n83008217> ;
+    ld4l:hasActivityStatement "New York, Grune & Stratton, 1957." ;
+    bf:place cul:place1 ;
+    dcterms:date "1957"^^<http://id.loc.gov/datatypes/edtf/EDTF> .
+cul:act2 a ld4l:EditingActivity ;
+    bf:agent <http://id.loc.gov/rwo/agents/n92026228> .
+cul:act3 a ld4l:ContributingActivity ;
+    bf:agent <http://id.loc.gov/rwo/agents/n50060120> .
+cul:class1 a bf:ClassificationLcc ;
+    bf:classificationPortion "RC941" ;
+    bf:source <http://id.loc.gov/rwo/agents/n78089035> .
+cul:class2 a bf:ClassificationLcc ;
+    bf:classificationPortion "RC941" ;
+    bf:itemPortion ".C6" ;
+    bf:source <http://id.loc.gov/rwo/agents/n78089035> .
+cul:class3 a bf:ClassificationDdc ;
+    bf:classificationPortion "616.2" .
+cul:ext1 a bf:Extent ;
+    bf:unit cul:page ;
+    rdf:value "759" .
+cul:id1 a ld4l:Identifier ;
+    bf:source <http://id.loc.gov/rwo/agents/n78015294> ;
+    rdf:value "1345399" .
+cul:id2 a ld4l:Identifier ;
+    bf:source "CStRLIN"^^ld4l:MARCOrgCode ;
+    rdf:value "NYCX86B63464" .
+cul:id3 a ld4l:Identifier ;
+    bf:source <http://id.loc.gov/rwo/agents/n85179829> ;
+    rdf:value "notisAAL3258" .
+cul:id4 a ld4l:LocalIlsIdentifier ;
+    rdf:value "102063" ;
+    bf:source <http://id.loc.gov/rwo/agents/n85179829> .
+cul:page a bf:Unit ;
+    rdf:value "page" .
+cul:place1 a prov:Location ;
+    rdfs:label "New York" ;
+    owl:sameAs <http://sws.geonames.org/5128581/> .
+cul:title1 a madsrdf:Title ;
+    dcterms:hasPart cul:titlePart1 ;
+    dcterms:language lexvo:eng ;
+    rdfs:label "Clinical cardiopulmonary physiology." .
+cul:titlePart1 a madsrdf:MainTitleElement ;
+    rdfs:label "Clinical cardiopulmonary physiology." .

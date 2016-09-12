@@ -1,0 +1,96 @@
+# Version of hand-coded LD4All Target Ontology transofrormation of
+# https://github.com/cul-it/onto-working-docs/blob/master/SampleData/102063/102063.marc.xml
+# this is a modified (generated URIs changed to bnodes) version of
+# https://github.com/cul-it/onto-working-docs/blob/master/SampleData/102063/102063.ttl
+#
+@prefix ex: <http://example.org/bib/> .
+@prefix bf: <http://bibframe.org/vocab/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ld4l: <http://bib.ld4l.org/ontology/> .
+@prefix lexvo: <http://lexvo.org/id/iso639-3/> .
+@prefix madsrdf: <http://www.loc.gov/mads/rdf/v1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:102063 a bf:Text, bf:Work ;
+    bf:classification [
+        a bf:ClassificationLcc ;
+        bf:classificationPortion "RC941" ;
+        bf:source <http://id.loc.gov/rwo/agents/n78089035> 
+    ] , [
+        a bf:ClassificationDdc ;
+        bf:classificationPortion "616.2"
+    ] ;
+    bf:hasInstance ex:102063instance1 ;
+    bf:identifiedBy [
+        a ld4l:Identifier ;
+        bf:source <http://id.loc.gov/rwo/agents/n78015294> ;
+        rdf:value "1345399" 
+    ] , [
+        a ld4l:Identifier ;
+        bf:source "CStRLIN"^^ld4l:MARCOrgCode ;
+        rdf:value "NYCX86B63464"
+    ] , [
+        a ld4l:Identifier ;
+        bf:source <http://id.loc.gov/rwo/agents/n85179829> ;
+        rdf:value "notisAAL3258"
+    ] , [
+        a ld4l:LocalIlsIdentifier ;
+        rdf:value "102063" ;
+        bf:source <http://id.loc.gov/rwo/agents/n85179829>
+    ] ;
+    dcterms:language lexvo:eng ;
+    dcterms:subject <http://id.loc.gov/authorities/subjects/sh85023137> ;
+    dcterms:subject <http://id.worldcat.org/fast/853831> ;
+    ld4l:hasActivity [
+        a ld4l:EditingActivity ;
+        bf:agent <http://id.loc.gov/rwo/agents/n92026228> 
+    ] , [
+        a ld4l:ContributingActivity ;
+        bf:agent <http://id.loc.gov/rwo/agents/n50060120> 
+    ] ;
+    ld4l:hasPreferredTitle [
+        a madsrdf:Title ;
+        dcterms:hasPart [
+            a madsrdf:MainTitleElement ;
+            rdfs:label "Clinical cardiopulmonary physiology."
+        ] ;
+        dcterms:language lexvo:eng ;
+        rdfs:label "Clinical cardiopulmonary physiology."
+    ] ;
+    ld4l:illustrativeContent ld4l:IllustrationsContent ;
+    owl:sameAs <http://lccn.loc.gov/56010158/L> .
+ex:102063instance1 a bf:Instance ;
+    bf:instanceOf ex:102063 ;
+    bf:classification [
+        a bf:ClassificationLcc ;
+        bf:classificationPortion "RC941" ;
+        bf:itemPortion ".C6" ;
+        bf:source <http://id.loc.gov/rwo/agents/n78089035>
+    ] ;
+    bf:issuance ld4l:Monograph ;
+    bf:supplementaryContent ld4l:SupplementaryBibliography ;
+    bf:dimensions "27 cm" ;
+    bf:extent [
+        a bf:Extent ;
+        bf:unit [
+            a bf:Unit ;
+            rdf:value "page"
+        ] ;
+        rdf:value "759"
+    ] ;
+    bf:responsibilityStatement "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" ;
+    bf:supplementaryContent ld4l:BibliographyContent ;
+    ld4l:hasActivity [
+        a ld4l:PublicationActivity ;
+        bf:agent <http://id.loc.gov/rwo/agents/n83008217> ;
+        ld4l:hasActivityStatement "New York, Grune & Stratton, 1957." ;
+        bf:place [
+           a prov:Location ;
+           rdfs:label "New York" ;
+           owl:sameAs <http://sws.geonames.org/5128581/>
+        ] ;
+        dcterms:date "1957"^^<http://id.loc.gov/datatypes/edtf/EDTF>
+    ] .
