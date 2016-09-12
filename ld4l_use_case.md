@@ -12,7 +12,7 @@ So, starting from the Cornell catalog, we have for this item:
    * [MARC21](https://newcatalog.library.cornell.edu/catalog/102063.marc)
    * [MARCXML](https://newcatalog.library.cornell.edu/catalog/102063.marcxml)
 
-Let's imagine that we have a MARCXML-to-LD4LAll ontology that we can run as follows:
+Let's imagine that we have a MARCXML-to-LD4LAll ontology converter `marcxml_to_ld4lall` that we can run as follows:
 
 ``` sh
 NOT-REAL> cat examples/102063.marc.xml | marcxml_to_ld4lall > examples/102063.rdf
@@ -37,136 +37,7 @@ rapper: Parsing returned 71 triples
 1,71c1,71
 < <http://example.org/cornell/xx/0caa0837> <http://bibframe.org/vocab/source> "CStRLIN"^^<http://bib.ld4l.org/ontology/MARCOrgCode> .
 < <http://example.org/cornell/xx/0caa0837> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
-< <http://example.org/cornell/xx/0caa0837> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "NYCX86B63464" .
-< <http://example.org/cornell/xx/0e8bfd42> <http://bibframe.org/vocab/agent> <http://id.loc.gov/rwo/agents/n92026228> .
-< <http://example.org/cornell/xx/0e8bfd42> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/EditingActivity> .
-< <http://example.org/cornell/xx/102063> <http://bib.ld4l.org/ontology/hasActivity> <http://example.org/cornell/xx/0e8bfd42> .
-< <http://example.org/cornell/xx/102063> <http://bib.ld4l.org/ontology/hasActivity> <http://example.org/cornell/xx/383ba728> .
-< <http://example.org/cornell/xx/102063> <http://bib.ld4l.org/ontology/hasPreferredTitle> <http://example.org/cornell/xx/cd468cc8> .
-< <http://example.org/cornell/xx/102063> <http://bib.ld4l.org/ontology/illustrativeContent> <http://bib.ld4l.org/ontology/IllustrationsContent> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/classification> <http://example.org/cornell/xx/ca846954> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/classification> <http://example.org/cornell/xx/f6109249> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/hasInstance> <http://example.org/cornell/xx/60ed19e4> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/identifiedBy> <http://example.org/cornell/xx/0caa0837> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/identifiedBy> <http://example.org/cornell/xx/35ca771e> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/identifiedBy> <http://example.org/cornell/xx/9d987592> .
-< <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/identifiedBy> <http://example.org/cornell/xx/fd6f3927> .
-< <http://example.org/cornell/xx/102063> <http://purl.org/dc/terms/language> <http://lexvo.org/id/iso639-3/eng> .
-< <http://example.org/cornell/xx/102063> <http://purl.org/dc/terms/subject> <http://id.loc.gov/authorities/subjects/sh85023137> .
-< <http://example.org/cornell/xx/102063> <http://purl.org/dc/terms/subject> <http://id.worldcat.org/fast/853831> .
-< <http://example.org/cornell/xx/102063> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Text> .
-< <http://example.org/cornell/xx/102063> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Work> .
-< <http://example.org/cornell/xx/102063> <http://www.w3.org/2002/07/owl#sameAs> <http://lccn.loc.gov/56010158/L> .
-< <http://example.org/cornell/xx/217f63bb> <http://bibframe.org/vocab/classificationPortion> "RC941" .
-< <http://example.org/cornell/xx/217f63bb> <http://bibframe.org/vocab/itemPortion> ".C6" .
-< <http://example.org/cornell/xx/217f63bb> <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78089035> .
-< <http://example.org/cornell/xx/217f63bb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationLcc> .
-< <http://example.org/cornell/xx/35ca771e> <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n85179829> .
-< <http://example.org/cornell/xx/35ca771e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
-< <http://example.org/cornell/xx/35ca771e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "notisAAL3258" .
-< <http://example.org/cornell/xx/383ba728> <http://bibframe.org/vocab/agent> <http://id.loc.gov/rwo/agents/n50060120> .
-< <http://example.org/cornell/xx/383ba728> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/ContributingActivity> .
-< <http://example.org/cornell/xx/44e6bc1d> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.loc.gov/mads/rdf/v1#MainTitleElement> .
-< <http://example.org/cornell/xx/44e6bc1d> <http://www.w3.org/2000/01/rdf-schema#label> "Clinical cardiopulmonary physiology." .
-< <http://example.org/cornell/xx/60ed19e4> <http://bib.ld4l.org/ontology/hasActivity> <http://example.org/cornell/xx/c3767171> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/classification> <http://example.org/cornell/xx/217f63bb> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/dimensions> "27 cm" .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/extent> <http://example.org/cornell/xx/d2eef25f> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/instanceOf> <http://example.org/cornell/xx/102063> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
-< <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
-< <http://example.org/cornell/xx/60ed19e4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
-< <http://example.org/cornell/xx/6ef0d391> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Unit> .
-< <http://example.org/cornell/xx/6ef0d391> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "page" .
-< <http://example.org/cornell/xx/6f41da78> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#Location> .
-< <http://example.org/cornell/xx/6f41da78> <http://www.w3.org/2000/01/rdf-schema#label> "New York" .
-< <http://example.org/cornell/xx/6f41da78> <http://www.w3.org/2002/07/owl#sameAs> <http://sws.geonames.org/5128581/> .
-< <http://example.org/cornell/xx/9d987592> <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78015294> .
-< <http://example.org/cornell/xx/9d987592> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
-< <http://example.org/cornell/xx/9d987592> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "1345399" .
-< <http://example.org/cornell/xx/c3767171> <http://bib.ld4l.org/ontology/hasActivityStatement> "New York, Grune & Stratton, 1957." .
-< <http://example.org/cornell/xx/c3767171> <http://bibframe.org/vocab/agent> <http://id.loc.gov/rwo/agents/n83008217> .
-< <http://example.org/cornell/xx/c3767171> <http://bibframe.org/vocab/place> <http://example.org/cornell/xx/6f41da78> .
-< <http://example.org/cornell/xx/c3767171> <http://purl.org/dc/terms/date> "1957"^^<http://id.loc.gov/datatypes/edtf/EDTF> .
-< <http://example.org/cornell/xx/c3767171> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/PublicationActivity> .
-< <http://example.org/cornell/xx/ca846954> <http://bibframe.org/vocab/classificationPortion> "RC941" .
-< <http://example.org/cornell/xx/ca846954> <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78089035> .
-< <http://example.org/cornell/xx/ca846954> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationLcc> .
-< <http://example.org/cornell/xx/cd468cc8> <http://purl.org/dc/terms/hasPart> <http://example.org/cornell/xx/44e6bc1d> .
-< <http://example.org/cornell/xx/cd468cc8> <http://purl.org/dc/terms/language> <http://lexvo.org/id/iso639-3/eng> .
-< <http://example.org/cornell/xx/cd468cc8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.loc.gov/mads/rdf/v1#Title> .
-< <http://example.org/cornell/xx/cd468cc8> <http://www.w3.org/2000/01/rdf-schema#label> "Clinical cardiopulmonary physiology." .
-< <http://example.org/cornell/xx/d2eef25f> <http://bibframe.org/vocab/unit> <http://example.org/cornell/xx/6ef0d391> .
-< <http://example.org/cornell/xx/d2eef25f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Extent> .
-< <http://example.org/cornell/xx/d2eef25f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "759" .
-< <http://example.org/cornell/xx/f6109249> <http://bibframe.org/vocab/classificationPortion> "616.2" .
-< <http://example.org/cornell/xx/f6109249> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationDdc> .
-< <http://example.org/cornell/xx/fd6f3927> <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n85179829> .
-< <http://example.org/cornell/xx/fd6f3927> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/LocalIlsIdentifier> .
-< <http://example.org/cornell/xx/fd6f3927> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "102063" .
----
-> <http://example.org/bib/102063> <http://bib.ld4l.org/ontology/hasActivity> _:genid7 .
-> <http://example.org/bib/102063> <http://bib.ld4l.org/ontology/hasActivity> _:genid8 .
-> <http://example.org/bib/102063> <http://bib.ld4l.org/ontology/hasPreferredTitle> _:genid10 .
-> <http://example.org/bib/102063> <http://bib.ld4l.org/ontology/illustrativeContent> <http://bib.ld4l.org/ontology/IllustrationsContent> .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/classification> _:genid1 .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/classification> _:genid2 .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/hasInstance> <http://example.org/bib/102063instance1> .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/identifiedBy> _:genid3 .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/identifiedBy> _:genid4 .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/identifiedBy> _:genid5 .
-> <http://example.org/bib/102063> <http://bibframe.org/vocab/identifiedBy> _:genid6 .
-> <http://example.org/bib/102063> <http://purl.org/dc/terms/language> <http://lexvo.org/id/iso639-3/eng> .
-> <http://example.org/bib/102063> <http://purl.org/dc/terms/subject> <http://id.loc.gov/authorities/subjects/sh85023137> .
-> <http://example.org/bib/102063> <http://purl.org/dc/terms/subject> <http://id.worldcat.org/fast/853831> .
-> <http://example.org/bib/102063> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Text> .
-> <http://example.org/bib/102063> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Work> .
-> <http://example.org/bib/102063> <http://www.w3.org/2002/07/owl#sameAs> <http://lccn.loc.gov/56010158/L> .
-> <http://example.org/bib/102063instance1> <http://bib.ld4l.org/ontology/hasActivity> _:genid15 .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/classification> _:genid11 .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/dimensions> "27 cm" .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/extent> _:genid13 .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/instanceOf> <http://example.org/bib/102063> .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
-> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
-> <http://example.org/bib/102063instance1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
-> _:genid1 <http://bibframe.org/vocab/classificationPortion> "RC941" .
-> _:genid1 <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78089035> .
-> _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationLcc> .
-> _:genid10 <http://purl.org/dc/terms/hasPart> _:genid9 .
-> _:genid10 <http://purl.org/dc/terms/language> <http://lexvo.org/id/iso639-3/eng> .
-> _:genid10 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.loc.gov/mads/rdf/v1#Title> .
-> _:genid10 <http://www.w3.org/2000/01/rdf-schema#label> "Clinical cardiopulmonary physiology." .
-> _:genid11 <http://bibframe.org/vocab/classificationPortion> "RC941" .
-> _:genid11 <http://bibframe.org/vocab/itemPortion> ".C6" .
-> _:genid11 <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78089035> .
-> _:genid11 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationLcc> .
-> _:genid12 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Unit> .
-> _:genid12 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "page" .
-> _:genid13 <http://bibframe.org/vocab/unit> _:genid12 .
-> _:genid13 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Extent> .
-> _:genid13 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "759" .
-> _:genid14 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#Location> .
-> _:genid14 <http://www.w3.org/2000/01/rdf-schema#label> "New York" .
-> _:genid14 <http://www.w3.org/2002/07/owl#sameAs> <http://sws.geonames.org/5128581/> .
-> _:genid15 <http://bib.ld4l.org/ontology/hasActivityStatement> "New York, Grune & Stratton, 1957." .
-> _:genid15 <http://bibframe.org/vocab/agent> <http://id.loc.gov/rwo/agents/n83008217> .
-> _:genid15 <http://bibframe.org/vocab/place> _:genid14 .
-> _:genid15 <http://purl.org/dc/terms/date> "1957"^^<http://id.loc.gov/datatypes/edtf/EDTF> .
-> _:genid15 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/PublicationActivity> .
-> _:genid2 <http://bibframe.org/vocab/classificationPortion> "616.2" .
-> _:genid2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/ClassificationDdc> .
-> _:genid3 <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n78015294> .
-> _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
-> _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "1345399" .
-> _:genid4 <http://bibframe.org/vocab/source> "CStRLIN"^^<http://bib.ld4l.org/ontology/MARCOrgCode> .
-> _:genid4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
-> _:genid4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "NYCX86B63464" .
-> _:genid5 <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n85179829> .
+.... 130 lines omitted ...
 > _:genid5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bib.ld4l.org/ontology/Identifier> .
 > _:genid5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "notisAAL3258" .
 > _:genid6 <http://bibframe.org/vocab/source> <http://id.loc.gov/rwo/agents/n85179829> .
@@ -189,7 +60,7 @@ Graphs examples/102063.rdf and examples/102063_simple.ttl are isomorphic after b
 
 (`-s` flag says report same, rather then being silent like default `diff` behavior, `-b http://example.org/` says theat URIs matching like bnodes.)
 
-What if the converter were not perfect, but instead contained an error? The example <examples/102063_bad.rdf> is missing the dimensions of the book (one triple) and the output is then:
+What if the converter were not perfect, but instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
