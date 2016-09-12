@@ -63,7 +63,7 @@ def to_bnodes(graph, pattern):
                 s = mapping[s]
                 subs += 1
         if (isinstance(o, URIRef)):
-            print("node %s %s %s" % (str(s), str(p), str(o)))
+            logging.debug("node %s %s %s" % (str(s), str(p), str(o)))
             if (o in mapping):
                 o = mapping[o]
                 subs += 1
@@ -92,6 +92,8 @@ def main():
     p.add_option('--bnode', '-b', action='append', default=[],
                  help="add a regex for URIs that should be treated like bnodes "
                       "in diffs (repeatable)")
+    p.add_option('--report-isomorphic-graphs', '-s', action='store_true',
+                 help="report if the input RDF graphs are isomorphic (after any bnode substitution)") 
     p.add_option('--verbose', '-v', action='store_true',
                  help="verbose, show additional informational messages")
     p.add_option('--debug', '-d', action='store_true',
@@ -107,31 +109,36 @@ def main():
         sys.exit("Two arguments required")
 
     graphs = []
+    num_subs = 0
+    mapping = dict()
     for filename in args:
         fmt = guess_format(filename)
         logging.info("Reading %s as %s..." % (filename, fmt))
         graph = Graph().parse(filename, format=fmt)
         logging.debug("... got %d triples" % (len(graph)))
-        mapping = dict()
         for pattern in opt.bnode:
             logging.debug("Looking for pattern %s" % (pattern))
             graph, subs, this_mapping = to_bnodes(graph, pattern)
+            num_subs += subs
             mapping.update(this_mapping)
         logging.debug("Complete mapping: " + str(mapping))
-        # FIXME - need to patch/replace/modify to_canonical_graph to record
-        # the relabeling
         cwm = CanonicalizerWithMemory(graph)
         graph = cwm.canonical_graph()
         graphs.append(graph)
 
     in_both, in_first, in_second = graph_diff(graphs[0], graphs[1])
 
-    same = len(in_both)
-    diff = len(in_first) + len(in_second)
-    pct_same = same * 200.0 / (diff + 2 * same)
-    logging.info(
-        "%d triples are shared by the two graphs (%.1f%%)" %
-        (same, pct_same))
+    num_same = len(in_both)
+    num_diff = len(in_first) + len(in_second)
+    pct_same = num_same * 200.0 / (num_diff + 2 * num_same)
+    if (num_diff == 0):
+        if (opt.report_isomorphic_graphs):
+            sub_note = ' after bnode substitutions' if (num_subs > 0) else ''
+            sys.stdout.write("Graphs %s and %s are isomorphic%s\n" % (args[0], args[1], sub_note))
+    else:
+        logging.info(
+            "%d triples are shared by the two graphs (%.1f%%)" %
+            (num_same, pct_same))
     logging.info("Shared:")
     logging.info(nt_sorted(in_both, '= '))
     if (len(in_first) > 0):
@@ -142,7 +149,7 @@ def main():
         sys.stdout.write(nt_sorted(in_second, '> '))
 
     # Exit status: 0 if same, 1 if different
-    sys.exit(1 if (diff > 0) else 0)
+    sys.exit(1 if (num_diff > 0) else 0)
 
 if __name__ == '__main__':
     main()
