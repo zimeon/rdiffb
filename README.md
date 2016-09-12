@@ -1,6 +1,7 @@
 # rdiffb - RDF diff with convenient bnode treatment
 
 [![Build Status](https://travis-ci.org/zimeon/rdiffb.svg?branch=master)](https://travis-ci.org/zimeon/rdiffb)
+[![Coverage Status](https://coveralls.io/repos/github/zimeon/rdiffb/badge.svg?branch=master)](https://coveralls.io/github/zimeon/rdiffb?branch=master)
 
 ## Problem statement
 
