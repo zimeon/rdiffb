@@ -60,7 +60,7 @@ Graphs examples/102063.rdf and examples/102063_simple.ttl are isomorphic after b
 
 (`-s` flag says report same, rather then being silent like default `diff` behavior, `-b http://example.org/` says theat URIs matching like bnodes.)
 
-What if the converter were not perfect, but instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
+What if the converter were not perfect, but the outout instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
