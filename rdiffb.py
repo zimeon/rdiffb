@@ -19,7 +19,6 @@ Copyright 2016
 
 import logging
 import optparse
-import re
 import sys
 
 from rdflib import __version__ as rdflib_version, Graph
@@ -29,51 +28,7 @@ from rdflib.term import BNode, URIRef
 
 import rdiffb
 from rdiffb.canonicalizer_with_memory import CanonicalizerWithMemory
-
-
-def nt_sorted(g, prefix=''):
-    """Linewise sort ntriples serialization, with optional prefix."""
-    s = ''
-    for line in sorted(g.serialize(format='nt').splitlines()):
-        if line:
-            s += prefix + line.decode('utf-8') + "\n"
-    return s
-
-
-def to_bnodes(graph, pattern):
-    """Convert any URIs in graph matching pattern to bnodes.
-
-    Returns:
-        new_graph -- modified graph
-        subs -- number of term substitutions made
-        mapping -- dict with mapping of URIRef -> BNode
-    """
-    new_graph = Graph()
-    mapping = dict()
-    regex = re.compile(pattern)
-    logging.debug("Looking for %s in graph" % (str(regex)))
-    subs = 0
-    for s, p, o in graph:
-        if (isinstance(s, URIRef)):
-            if (s in mapping):
-                s = mapping[s]
-                subs += 1
-            elif (regex.search(str(s))):
-                mapping[s] = BNode()
-                s = mapping[s]
-                subs += 1
-        if (isinstance(o, URIRef)):
-            logging.debug("node %s %s %s" % (str(s), str(p), str(o)))
-            if (o in mapping):
-                o = mapping[o]
-                subs += 1
-            elif (regex.search(str(o))):
-                mapping[o] = BNode()
-                o = mapping[o]
-                subs += 1
-        new_graph.add((s, p, o))
-    logging.debug("mapping: %s, made %d subs" % (str(mapping), subs))
-    return new_graph, subs, mapping
+from rdiffb.bnode_mapper import nt_sorted, to_bnodes, from_bnodes_triple, from_bnodes
 
 
 def main():
@@ -109,13 +64,14 @@ def main():
         sys.exit("Two arguments required")
 
     graphs = []
+    mappings = []
     num_subs = 0
-    mapping = dict()
     for filename in args:
         fmt = guess_format(filename)
         logging.info("Reading %s as %s..." % (filename, fmt))
         graph = Graph().parse(filename, format=fmt)
         logging.debug("... got %d triples" % (len(graph)))
+        mapping = dict()
         for pattern in opt.bnode:
             logging.debug("Looking for pattern %s" % (pattern))
             graph, subs, this_mapping = to_bnodes(graph, pattern)
@@ -125,6 +81,17 @@ def main():
         cwm = CanonicalizerWithMemory(graph)
         graph = cwm.canonical_graph()
         graphs.append(graph)
+        # Merge mapping from patterns with mapping from canonicalization
+        mapping = {v: k for k, v in mapping.items()}  # invert: bnode -> original URI
+        for (new_bnode, old_bnode) in cwm.bnode_map.items():
+            if (old_bnode in mapping):
+                # We mapped twice, make make from new_bnode -> original
+                mapping[new_bnode] = mapping[old_bnode]
+                del mapping[old_bnode]
+            else:
+                # Original was a bnode, just canonicalization mapping
+                mapping[new_bnode] = old_bnode
+        mappings.append(mapping)
 
     in_both, in_first, in_second = graph_diff(graphs[0], graphs[1])
 
@@ -139,14 +106,31 @@ def main():
         logging.info(
             "%d triples are shared by the two graphs (%.1f%%)" %
             (num_same, pct_same))
-    logging.info("Shared:")
-    logging.info(nt_sorted(in_both, '= '))
+        # Although triples "match", they may not come from the same orginal
+        # triples so do inverse mapping for each source graph
+        for triple in in_both:
+            triple_in_first = from_bnodes_triple(triple, mappings[0])
+            triple_in_second = from_bnodes_triple(triple, mappings[1])
+            # FIXME - this is stupendously inefficient to create a graph in
+            # FIXME - order to write each triple!
+            if (triple_in_first == triple_in_second):
+                g = Graph()
+                g.add(triple_in_first)
+                logging.info(nt_sorted(g, '== '))
+            else:
+                g = Graph()
+                g.add(triple_in_first)
+                logging.info(nt_sorted(g, '=< '))
+                g = Graph()
+                g.add(triple_in_second)
+                logging.info(nt_sorted(g, '=> '))
+    # Normal diff outout for < and >
     if (len(in_first) > 0):
-        logging.info("In first only:")
-        sys.stdout.write(nt_sorted(in_first, '< '))
+        logging.debug("In first only:")
+        sys.stdout.write(nt_sorted(from_bnodes(in_first, mappings[0]), '<  ') + "\n")
     if (len(in_second) > 0):
-        logging.info("In second only:")
-        sys.stdout.write(nt_sorted(in_second, '> '))
+        logging.debug("In second only:")
+        sys.stdout.write(nt_sorted(from_bnodes(in_second, mappings[1]), '>  ') + "\n")
 
     # Exit status: 0 if same, 1 if different
     sys.exit(1 if (num_diff > 0) else 0)

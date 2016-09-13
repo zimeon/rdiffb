@@ -26,11 +26,11 @@ A first attempt might be to convert each output to ntriples (I use `rapper` from
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>rapper -i rdfxml -o ntriples examples/102063.rdf | sort > /tmp/in.nt
-rapper: Parsing URI file:///Users/simeon/src/rdiffb/examples/102063.rdf with parser rdfxml
+rapper: Parsing URI file:examples/102063.rdf with parser rdfxml
 rapper: Serializing with serializer ntriples
 rapper: Parsing returned 71 triples
 (py3)simeon@RottenApple rdiffb>rapper -i turtle -o ntriples examples/102063_simple.ttl | sort > /tmp/out.nt
-rapper: Parsing URI file:///Users/simeon/src/rdiffb/examples/102063_simple.ttl with parser turtle
+rapper: Parsing URI file:examples/102063_simple.ttl with parser turtle
 rapper: Serializing with serializer ntriples
 rapper: Parsing returned 71 triples
 (py3)simeon@RottenApple rdiffb>diff /tmp/in.nt /tmp/out.nt 
@@ -64,36 +64,33 @@ What if the converter were not perfect, but the outout instead contained an erro
 
 ``` sh
 (py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
-< _:cb0 <http://bibframe.org/vocab/hasInstance> _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bib.ld4l.org/ontology/hasActivity> _:cbd6ef0a0424b2585f9b4b39a3134b5afc59e91b9c0903f8462772d058a21931b2 .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/classification> _:cb96b9b72919db4d5927eea343ddef8f235eea8961f90762633ded92600a137754 .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/extent> _:cb1fb57421e323d69c9b8c5e56e678bc46a14e698011e6c62fc0e71a1d3d9b5830 .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/instanceOf> _:cb0 .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
-< _:cb8986c6f134a9c58441bf205a8e94f583e5b50c5863f7231bac6bf7b6938ac225 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
-> _:cb0 <http://bibframe.org/vocab/hasInstance> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bib.ld4l.org/ontology/hasActivity> _:cbd6ef0a0424b2585f9b4b39a3134b5afc59e91b9c0903f8462772d058a21931b2 .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/classification> _:cb96b9b72919db4d5927eea343ddef8f235eea8961f90762633ded92600a137754 .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/dimensions> "27 cm" .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/extent> _:cb1fb57421e323d69c9b8c5e56e678bc46a14e698011e6c62fc0e71a1d3d9b5830 .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/instanceOf> _:cb0 .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
+<  <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/hasInstance> <http://example.org/cornell/xx/60ed19e4> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bib.ld4l.org/ontology/hasActivity> <http://example.org/cornell/xx/c3767171> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/classification> <http://example.org/cornell/xx/217f63bb> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/extent> <http://example.org/cornell/xx/d2eef25f> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/instanceOf> <http://example.org/cornell/xx/102063> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
+<  <http://example.org/cornell/xx/60ed19e4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
+>  <http://example.org/bib/102063> <http://bibframe.org/vocab/hasInstance> <http://example.org/bib/102063instance1> .
+>  <http://example.org/bib/102063instance1> <http://bib.ld4l.org/ontology/hasActivity> _:ub1bL85C22 .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/classification> _:ub1bL66C23 .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/dimensions> "27 cm" .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/extent> _:ub1bL75C15 .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/instanceOf> <http://example.org/bib/102063> .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/issuance> <http://bib.ld4l.org/ontology/Monograph> .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/responsibilityStatement> "Sponsored by the American College of Chest Physicians. Editorial board: Burgess L. Gordon, chairman, editor-in-chief, Albert H. Andrews [and others]" .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/BibliographyContent> .
+>  <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/supplementaryContent> <http://bib.ld4l.org/ontology/SupplementaryBibliography> .
+>  <http://example.org/bib/102063instance1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bibframe.org/vocab/Instance> .
 ```
 
 Sadly, the output is rather more than one triple. This is because the deterministic assignment of canonical bnode labels depends upon the environment of the bnode which is changed because of the missing triple. In this case we see in the output all triples involving the `bf:Instance` that should have had the dimensions. Ideally, a helpful tool would have output just:
 
 ```
-> _:cb67186689a3c33546ff69a5ceab24355ef3b77544e483432cfc845d3493fb87e3 <http://bibframe.org/vocab/dimensions> "27 cm" .
+> <http://example.org/bib/102063instance1> <http://bibframe.org/vocab/dimensions> "27 cm" .
 ```
 
 But at least one can tell a match from a mismatch, and output in the mismatching case is somewhat helpful.
-
-FIXME -- Still to do: make `rdiffb` output show the original input URIs and not the bnode labels. 
-
