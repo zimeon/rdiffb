@@ -82,7 +82,7 @@ def main():
         graph = cwm.canonical_graph()
         graphs.append(graph)
         # Merge mapping from patterns with mapping from canonicalization
-        mapping = {v: k for k, v in mapping.items()}  # invert: bnode -> original URI
+        mapping = dict((v, k) for k, v in mapping.items())  # invert: bnode -> original URI
         for (new_bnode, old_bnode) in cwm.bnode_map.items():
             if (old_bnode in mapping):
                 # We mapped twice, make make from new_bnode -> original
