@@ -3,6 +3,7 @@
 import logging
 from rdflib import Graph
 from rdflib.term import BNode, URIRef
+from rdflib.plugins.serializers.nt import _nt_row
 import re
 
 
@@ -16,6 +17,29 @@ def nt_sorted(g, prefix=''):
         if line:
             s += '\n' if (s) else ''
             s += prefix + line.decode('utf-8')
+    return s
+
+
+def serialize_equalish(in_both, mappings):
+    """Return string for triples that matched.
+
+    Although triples "match", they may not come from the same orginal
+    triples so do inverse mapping for each source graph.
+
+    WARNING - uses _nt_row() from rdflib.plugins.serializers.nt which is
+    a bit naughty. However, to avoid this it is necessary either to build
+    a graph for each triple to be written, or to write another copy of
+    the serialization code.
+    """
+    s = ''
+    for triple in in_both:
+        triple_in_first = from_bnodes_triple(triple, mappings[0])
+        triple_in_second = from_bnodes_triple(triple, mappings[1])
+        if (triple_in_first == triple_in_second):
+            s += '== ' + _nt_row(triple_in_first)
+        else:
+            s += '=< ' + _nt_row(triple_in_first)
+            s += '=> ' + _nt_row(triple_in_second)
     return s
 
 

@@ -28,7 +28,7 @@ from rdflib.term import BNode, URIRef
 
 import rdiffb
 from rdiffb.canonicalizer_with_memory import CanonicalizerWithMemory
-from rdiffb.bnode_mapper import nt_sorted, to_bnodes, from_bnodes_triple, from_bnodes
+from rdiffb.bnode_mapper import nt_sorted, serialize_equalish, to_bnodes, from_bnodes_triple, from_bnodes
 
 
 def main():
@@ -106,24 +106,7 @@ def main():
         logging.info(
             "%d triples are shared by the two graphs (%.1f%%)" %
             (num_same, pct_same))
-        # Although triples "match", they may not come from the same orginal
-        # triples so do inverse mapping for each source graph
-        for triple in in_both:
-            triple_in_first = from_bnodes_triple(triple, mappings[0])
-            triple_in_second = from_bnodes_triple(triple, mappings[1])
-            # FIXME - this is stupendously inefficient to create a graph in
-            # FIXME - order to write each triple!
-            if (triple_in_first == triple_in_second):
-                g = Graph()
-                g.add(triple_in_first)
-                logging.info(nt_sorted(g, '== '))
-            else:
-                g = Graph()
-                g.add(triple_in_first)
-                logging.info(nt_sorted(g, '=< '))
-                g = Graph()
-                g.add(triple_in_second)
-                logging.info(nt_sorted(g, '=> '))
+        logging.info(serialize_equalish(in_both, mappings))
     # Normal diff outout for < and >
     if (len(in_first) > 0):
         logging.debug("In first only:")
