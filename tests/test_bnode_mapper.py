@@ -24,7 +24,7 @@ class TestBNodeMapper(unittest.TestCase):
         self.assertEqual(len(mapping), 2)
         self.assertTrue(URIRef(u'http://example.org/a/s') in mapping)
         self.assertTrue(URIRef(u'http://example.org/a/o') in mapping)
-        for s,p,o in gb.triples((None, URIRef(u'http://example.org/a/p'), None)):
+        for s, p, o in gb.triples((None, URIRef(u'http://example.org/a/p'), None)):
             self.assertTrue(isinstance(s, BNode))
             self.assertTrue(isinstance(o, BNode))
 
@@ -39,7 +39,6 @@ class TestBNodeMapper(unittest.TestCase):
         self.assertEqual(s, URIRef(u'sss'))
         self.assertEqual(p, b2)  # no change
         self.assertEqual(o, URIRef(u'ooo'))
-
 
     def test03_from_bnodes(self):
         """Test mapping of graph with BNodes."""
@@ -57,10 +56,10 @@ class TestBNodeMapper(unittest.TestCase):
                b2)]
         g2 = from_bnodes(g, mapping)
         self.assertEqual(len(g2), 2)
-        for s,p,o in g2.triples((None, URIRef(u'http://example.org/e/p'), None)):
+        for s, p, o in g2.triples((None, URIRef(u'http://example.org/e/p'), None)):
             self.assertEqual(s, URIRef(u'http://example.org/e/s'))
             self.assertEqual(o, URIRef(u'http://example.org/e/o'))
-        for s,p,o in g2.triples((None, URIRef(u'http://example.org/f/p'), None)):
+        for s, p, o in g2.triples((None, URIRef(u'http://example.org/f/p'), None)):
             self.assertEqual(s, URIRef(u'http://example.org/f/s'))
             self.assertEqual(o, URIRef(u'http://example.org/f/o'))
 

@@ -58,8 +58,13 @@ def to_bnodes(graph, pattern):
 def from_bnodes_triple(triple, mapping):
     """Convert bnodes back to original URI if listed in mapping, for one triple.
 
-    mapping is a dictionary that maps from the current node values
+    Parameters:
+      triple -- a single triple as tuple (s, p, o)
+      mapping -- a dictionary that maps from the current node values
     to the desired ones.
+
+    Returns:
+      (s, p, o) -- tuple of possibly modified triple
     """
     s, p, o = triple
     if (s in mapping):
