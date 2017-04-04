@@ -51,10 +51,10 @@ rapper: Parsing returned 71 triples
 > _:genid9 <http://www.w3.org/2000/01/rdf-schema#label> "Clinical cardiopulmonary physiology." .
 ```
 
-Without lots of eyestrain we don't learn very much. The `rdiffb.py` program is designed to do two things: First, it can treat URIs matching certain patterns like bnodes. In the examples here, we want to treat any URI starting `http://example.org/` as a bnode. Second, it uses a deterministic relabeling of bnodes to match-up bnodes from isomorphic graphs. Thus if the two graphs are the same up to bnodes and the specified URI patterms, we will see no diff:
+Without lots of eyestrain we don't learn very much. The `rdfdiffb.py` program is designed to do two things: First, it can treat URIs matching certain patterns like bnodes. In the examples here, we want to treat any URI starting `http://example.org/` as a bnode. Second, it uses a deterministic relabeling of bnodes to match-up bnodes from isomorphic graphs. Thus if the two graphs are the same up to bnodes and the specified URI patterms, we will see no diff:
 
 ``` sh
-(py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063.rdf examples/102063_simple.ttl
+(py3)simeon@RottenApple rdiffb>python rdfdiffb.py -s -b http://example.org/ examples/102063.rdf examples/102063_simple.ttl
 Graphs examples/102063.rdf and examples/102063_simple.ttl are isomorphic after bnode substitutions
 ```
 
@@ -63,7 +63,7 @@ Graphs examples/102063.rdf and examples/102063_simple.ttl are isomorphic after b
 What if the converter were not perfect, but the outout instead contained an error? The example [102063_bad.rdf](examples/102063_bad.rdf) is missing the dimensions of the book (one triple). Comparison with our handcrafted version is then:
 
 ``` sh
-(py3)simeon@RottenApple rdiffb>python rdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
+(py3)simeon@RottenApple rdiffb>python rdfdiffb.py -s -b http://example.org/ examples/102063_bad.rdf examples/102063_simple.ttl
 <  <http://example.org/cornell/xx/102063> <http://bibframe.org/vocab/hasInstance> <http://example.org/cornell/xx/60ed19e4> .
 <  <http://example.org/cornell/xx/60ed19e4> <http://bib.ld4l.org/ontology/hasActivity> <http://example.org/cornell/xx/c3767171> .
 <  <http://example.org/cornell/xx/60ed19e4> <http://bibframe.org/vocab/classification> <http://example.org/cornell/xx/217f63bb> .
