@@ -57,7 +57,23 @@ class TestRDiffB(unittest.TestCase):
         self.assertEqual(len(rdb.in_second), 0)
         self.assertEqual(len(rdb.in_both), 70)
 
-    def test05_write_diff_same(self):
+    def test05_compare_graphs(self):
+        """Test direct graph comparison."""
+        rdb = RDiffB(['o1'])
+        g1 = Graph()
+        bnode1= BNode()
+        g1 += [(URIRef(u'a/s1'), URIRef(u'p1'), bnode1),
+               (bnode1, URIRef(u'p2'), URIRef(u'b/o2'))]
+        g2 = Graph()
+        g2 += [(URIRef(u'a/s1'), URIRef(u'p1'), URIRef(u'o1')),
+               (URIRef(u'o1'), URIRef(u'p2'), URIRef(u'b/o2'))]
+        num_diff = rdb.compare_graphs([g1, g2])
+        self.assertEqual(num_diff, 0)
+        self.assertEqual(len(rdb.in_first), 0)
+        self.assertEqual(len(rdb.in_second), 0)
+        self.assertEqual(len(rdb.in_both), 2)
+
+    def test06_write_diff_same(self):
         """Test write_diff where graphs match."""
         rdb = RDiffB()
         rdb.filenames = ['g1', 'g2']

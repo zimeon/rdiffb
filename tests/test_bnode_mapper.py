@@ -3,13 +3,13 @@
 import unittest
 
 from rdflib import Graph, URIRef, BNode
-from rdiffb.bnode_mapper import to_bnodes, from_bnodes_triple, from_bnodes
+from rdiffb.bnode_mapper import to_bnodes, from_bnodes_triple, from_bnodes, serialize_equalish
 
 
 class TestBNodeMapper(unittest.TestCase):
     """Test BNodeMapper class."""
 
-    def test01_to_bnode(self):
+    def test01_to_bnodes(self):
         """BNode mapping loadTestsFromTestCase."""
         g = Graph()
         g += [(URIRef(u'http://example.org/a/s'),
@@ -18,6 +18,7 @@ class TestBNodeMapper(unittest.TestCase):
               (URIRef(u'http://example.org/b/s'),
                URIRef(u'http://example.org/b/p'),
                URIRef(u'http://example.org/b/o'))]
+        # Use initial string for match
         gb, subs, mapping = to_bnodes(g, 'http://example.org/a/')
         self.assertEqual(len(gb), 2)
         self.assertEqual(subs, 2)
@@ -27,6 +28,16 @@ class TestBNodeMapper(unittest.TestCase):
         for s, p, o in gb.triples((None, URIRef(u'http://example.org/a/p'), None)):
             self.assertTrue(isinstance(s, BNode))
             self.assertTrue(isinstance(o, BNode))
+        # Repeat match on a/s and b/o
+        g += [(URIRef(u'http://example.org/a/s'),
+               URIRef(u'http://example.org/c/p'),
+               URIRef(u'http://example.org/b/o'))]
+        gb, subs, mapping = to_bnodes(g, 'http://example.org/')
+        self.assertEqual(len(gb), 3)
+        self.assertEqual(subs, 6)
+        self.assertEqual(len(mapping), 4)
+        self.assertTrue(URIRef(u'http://example.org/a/s') in mapping)
+        self.assertTrue(URIRef(u'http://example.org/b/o') in mapping)
 
     def test02_from_bnodes_triple(self):
         """Test mapping of single triple with BNode."""
@@ -62,6 +73,18 @@ class TestBNodeMapper(unittest.TestCase):
         for s, p, o in g2.triples((None, URIRef(u'http://example.org/f/p'), None)):
             self.assertEqual(s, URIRef(u'http://example.org/f/s'))
             self.assertEqual(o, URIRef(u'http://example.org/f/o'))
+
+    def test04_serialize_equalish(self):
+        """Test serialize_equalish() function."""
+        in_both = [(URIRef(u'a/s'), URIRef(u'a/p'), URIRef(u'a/o')),
+                   (URIRef(u'b/s'), URIRef(u'b/p'), URIRef(u'b/o'))]
+        mappings = [{URIRef(u'b/s'): URIRef(u'_b/s_1'), 'c': "_cc"},
+                    {URIRef(u'b/s'): URIRef(u'_b/s_2')}]
+        lines = serialize_equalish(in_both, mappings).split('\n')
+        self.assertIn('== <a/s> <a/p> <a/o> .', lines)
+        self.assertIn('=< <_b/s_1> <b/p> <b/o> .', lines)
+        self.assertIn('=> <_b/s_2> <b/p> <b/o> .', lines)
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestBNodeMapper)

@@ -1,8 +1,9 @@
 # Changelog for `rdiffb` module and `rdfdiffb.py` command line tool
 
-2017-05-?? 0.3.0
+2017-09-21 0.3.0
 
-  * ...
+  * Add `compare_graphs` method
+  * Improve test coverage
 
 2017-04-04 0.2.0
 

@@ -16,8 +16,12 @@ class RDiffB(object):
     """RDiffB class implements RDF diff functions with bnode mapping."""
 
     def __init__(self, bnodes=None):
-        """Initialize with set of bnode patterns."""
+        """Initialize, optionally with set of bnode patterns."""
         self.bnodes = bnodes if bnodes else []
+        self._initialize()
+
+    def _initialize(self):
+        # Clear internal data
         self.filenames = []
         self.graphs = []
         self.mappings = []
@@ -69,15 +73,29 @@ class RDiffB(object):
         return(graph, mapping)
 
     def compare_files(self, filenames):
-        """Compare graphs from two RDF files.
+        """Compare graphs from two RDF files in the filenames list.
 
         Returns the number of triples that are different after matching
         up bnodes.
         """
+        graphs = []
         for filename in filenames:
-            graph = self.load_graph(filename)
-            (graph, mapping) = self.map_patterns_and_canonicalize(graph)
-            self.filenames.append(filename)
+            graphs.append(self.load_graph(filename))
+        return(self.compare_graphs(graphs, filenames))
+
+    def compare_graphs(self, graphs, names=None):
+        """Compare two Graph objects given in the graphs list.
+
+        Returns the number of triples that are different after matching
+        up bnodes.
+        """
+        self._initialize()
+        if (names is None):
+            self.filenames = ['graph1', 'graph2']
+        else:
+            self.filenames = names
+        for g in graphs:
+            (graph, mapping) = self.map_patterns_and_canonicalize(g)
             self.graphs.append(graph)
             self.mappings.append(mapping)
         self.in_both, self.in_first, self.in_second = \

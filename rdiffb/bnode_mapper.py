@@ -46,6 +46,10 @@ def serialize_equalish(in_both, mappings):
 def to_bnodes(graph, pattern):
     """Convert any URIs in graph matching pattern to bnodes.
 
+    Parameters:
+        graph -- input graph to map
+        pattern -- a regex to be used with regex.search() on the string
+            representations of subject and predicate terms in graph
     Returns:
         new_graph -- modified graph
         subs -- number of term substitutions made
