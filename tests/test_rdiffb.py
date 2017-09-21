@@ -61,7 +61,7 @@ class TestRDiffB(unittest.TestCase):
         """Test direct graph comparison."""
         rdb = RDiffB(['o1'])
         g1 = Graph()
-        bnode1= BNode()
+        bnode1 = BNode()
         g1 += [(URIRef(u'a/s1'), URIRef(u'p1'), bnode1),
                (bnode1, URIRef(u'p2'), URIRef(u'b/o2'))]
         g2 = Graph()
