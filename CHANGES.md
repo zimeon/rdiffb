@@ -1,8 +1,8 @@
 # Changelog for `rdiffb` module and `rdfdiffb.py` command line tool
 
-????-??-?? 0.4.0
+2018-08-07 0.4.0
 
-  * ???
+  * Drop python 3.3 from tests: 2.7 and 3.4+ only
 
 2017-09-21 0.3.0
 
