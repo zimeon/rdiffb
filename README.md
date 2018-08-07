@@ -17,4 +17,4 @@ As part of the [LD4L](http://ld4l.org/) Labs project we want a continuous integr
 ## Notes
 
   * [LD4L RDF `diff` Use Case](ld4l_use_case.md) in detail with examples using `rdfdiffb.py`
-  * [Beware old versions of rdflib -- upgrade!](beware_old_rdflib.md)
+  * [Beware old versions of rdflib (<4.2.0) -- upgrade!](beware_old_rdflib.md)
