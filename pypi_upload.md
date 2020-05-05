@@ -16,9 +16,12 @@ Putting up a new version
   5. Check local build and version reported OK (python setup.py install)
   6. Upload new version to pypi:
 
-    ```
-    python setup.py sdist upload
-    ```
+      ```
+      pip install --upgrade setuptools wheel twine
+      python setup.py sdist bdist_wheel
+      ls dist
+      twine upload dist/*
+      ```
 
   7. Check on PyPI at <https://pypi.python.org/pypi/rdiffb>
   8. On working branch bump version number in `rdiffb/__init__.py`
