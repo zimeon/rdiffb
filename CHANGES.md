@@ -1,5 +1,9 @@
 # Changelog for `rdiffb` module and `rdfdiffb.py` command line tool
 
+2020-05-05 0.5.0
+
+  * Drop python 2.7, build against 3.6, 3.7, 3.8
+
 2018-08-07 0.4.0
 
   * Drop python 3.3 from tests: 2.7 and 3.4+ only

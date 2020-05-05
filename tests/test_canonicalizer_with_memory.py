@@ -52,6 +52,7 @@ class TestCanonicalizerWithMemory(unittest.TestCase):
         self.assertEqual(cwm.bnode_map[s], ob1)
         self.assertEqual(cwm.bnode_map[o], ob3)
 
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCanonicalizerWithMemory)
     unittest.TextTestRunner(verbosity=2).run(suite)

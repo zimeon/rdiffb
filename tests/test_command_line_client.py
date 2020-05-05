@@ -24,8 +24,9 @@ class TestCommandLineClient(unittest.TestCase):
         # Mismatch because subjects are /gen1 and /gen2
         self.assertEqual(run("testdata/graph3_a.ttl testdata/graph3_b.ttl"), 1)
         # Match if we make /gen1 and /gen2 into bnodes
-        self.assertEqual(run("testdata/graph3_a.ttl testdata/graph3_b.ttl " +
-                             "--bnode '/gen1' --bnode='/gen2'"), 0)
+        self.assertEqual(run("testdata/graph3_a.ttl testdata/graph3_b.ttl "
+                             + "--bnode '/gen1' --bnode='/gen2'"), 0)
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCommandLineClient)

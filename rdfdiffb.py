@@ -2,7 +2,7 @@
 """
 rdfdiffb.py: RDF diff with bnode handling command line utility.
 
-Copyright 2016--2017
+Copyright 2016--2020
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ def main():
 
     # Exit status: 0 if same, 1 if different
     sys.exit(1 if (num_diff > 0) else 0)
+
 
 if __name__ == '__main__':
     main()

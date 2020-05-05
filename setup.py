@@ -39,6 +39,7 @@ class Coverage(Command):
         os.system("coverage html")
         print("See htmlcov/index.html for details.")
 
+
 setup(
     name='rdiffb',
     version=version,
